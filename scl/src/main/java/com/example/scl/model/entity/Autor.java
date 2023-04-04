@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Autor extends Pessoa {
     private String email;
+    private Livro livro;
 
 }
