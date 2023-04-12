@@ -3,8 +3,9 @@ package com.example.scl.service;
 import com.example.scl.exception.RegraNegocioException;
 import com.example.scl.model.entity.Autor;
 import com.example.scl.model.repository.AutorRepository;
-import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
