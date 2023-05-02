@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 public class AutorDTO {
     private Long id;
     private String nome;
+    private Long idLivro;
 
     private String email;
 
@@ -22,6 +23,7 @@ public class AutorDTO {
         AutorDTO dto = modelMapper.map(autor, AutorDTO.class);
         dto.nome = autor.getNome();
         dto.email = autor.getEmail();
+
         return dto;
     }
 }
