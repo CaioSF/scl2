@@ -1,6 +1,7 @@
 package com.example.scl.service;
 
 
+import com.example.scl.exception.RegraNegocioException;
 import com.example.scl.model.entity.Livro;
 
 import com.example.scl.model.repository.LivroRepository;
@@ -35,5 +36,21 @@ import java.util.Optional;
         public void excluir(Livro livro) {
             Objects.requireNonNull(livro.getId());
             repository.delete(livro);
+        }
+
+        @Transactional
+        public Livro salvar(Livro livro) {
+            validar(livro);
+            return repository.save(livro);
+
+        }
+
+        public void validar (Livro livro) {
+            if (livro.getNomeAutor() ==null) {
+                throw new RegraNegocioException("Livro não encontrado");
+            }
+            if (livro.getNome() ==null || livro.getNome().trim().equals("")) {
+                throw new RegraNegocioException("Nome Inválido");
+            }
         }
 }

@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.fasterxml.jackson.databind.deser.impl.JavaUtilCollectionsDeserializers.converter;
 
 
-@Controller
+
+
 @RestController
 @RequestMapping("/api/v1/autores")
 @RequiredArgsConstructor

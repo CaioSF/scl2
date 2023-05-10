@@ -1,6 +1,7 @@
 package com.example.scl.api.dto;
 
 
+import com.example.scl.model.entity.Autor;
 import com.example.scl.model.entity.Livro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,8 @@ public class LivroDTO {
     private Integer nota;
 
     private Date dataLancamento;
+
+    private Autor autor;
 
     public static LivroDTO create(Livro livro) {
         ModelMapper modelMapper = new ModelMapper();

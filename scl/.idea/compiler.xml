@@ -6,12 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="scl" />
+        <module name="scaapi" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="scl" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="scaapi" options="-parameters" />
       <module name="scl" options="-parameters" />
     </option>
   </component>

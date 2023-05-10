@@ -30,4 +30,7 @@ public class Livro {
 
     @ManyToOne
     private Editora editora;
+
+    @ManyToOne
+    private Autor autor;
 }
