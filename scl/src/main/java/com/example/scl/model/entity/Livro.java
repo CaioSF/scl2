@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -12,18 +13,17 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 public class Livro {
+
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String nome;
 
-    private String nomeAutor;
-
-    private String nomeEditora;
-
     private Integer nota;
 
-    private Date dataLancamento;
+    private LocalDate dataLancamento;
 
     @ManyToOne
     private Genero genero;

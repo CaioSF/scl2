@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EditoraDTO {
+
+
+    private Long id;
     private String nome;
 
 

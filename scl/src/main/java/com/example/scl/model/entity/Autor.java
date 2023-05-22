@@ -18,10 +18,13 @@ import javax.persistence.ManyToOne;
 public class Autor extends Pessoa {
 
 
+
+
     private String email;
-    @Id
-    private Long id;
-    @ManyToOne
-    private Livro livro;
+
+
+
+
+
 
 }

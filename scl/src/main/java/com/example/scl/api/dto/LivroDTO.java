@@ -8,32 +8,36 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class LivroDTO {
+
+
+    @Id
+    private Long id;
     private String nome;
 
-    private String nomeAutor;
 
-    private String nomeEditora;
 
     private Integer nota;
 
-    private Date dataLancamento;
+    private LocalDate dataLancamento;
 
-    private Autor autor;
+    private Long idAutor;
+
+    private Long idEditora;
+
+
 
     public static LivroDTO create(Livro livro) {
         ModelMapper modelMapper = new ModelMapper();
         LivroDTO dto = modelMapper.map(livro, LivroDTO.class);
-        dto.nome = livro.getNome();
-        dto.nomeAutor = livro.getNomeAutor();
-        dto.nomeEditora = livro.getNomeEditora();
-        dto.nota = livro.getNota();
-        dto.dataLancamento = livro.getDataLancamento();
+
         return dto;
     }
 }

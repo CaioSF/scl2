@@ -1,6 +1,7 @@
 package com.example.scl.api.dto.controller;
 
 import com.example.scl.api.dto.AutorDTO;
+import com.example.scl.api.dto.LivroDTO;
 import com.example.scl.exception.RegraNegocioException;
 import com.example.scl.model.entity.Autor;
 import com.example.scl.model.entity.Livro;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/autores")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 
 public class AutorController {
@@ -47,12 +49,14 @@ public class AutorController {
             return ResponseEntity.ok(autor.map(AutorDTO::create));
         }
 
+
+
     @PostMapping()
-    public ResponseEntity post(AutorDTO dto) {
+    public ResponseEntity post(@RequestBody final   AutorDTO dto) {
         try {
             Autor autor = converter(dto);
-            Livro livro = livroService.salvar(autor.getLivro());
-            autor.setLivro((livro));
+
+
             autor = service.salvar(autor);
             return new ResponseEntity(autor, HttpStatus.CREATED);
         } catch (RegraNegocioException e ) {
@@ -60,15 +64,14 @@ public class AutorController {
         }
     }
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, AutorDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id")  final Long id, @RequestBody AutorDTO dto) {
         if (!service.getAutorById(id).isPresent()) {
             return new ResponseEntity("Autor não encontrado", HttpStatus.NOT_FOUND);
         }
         try {
             Autor autor = converter(dto);
             autor.setId(id);
-            Livro livro = livroService.salvar(autor.getLivro());
-            autor.setLivro(livro);
+
             service.salvar(autor);
             return ResponseEntity.ok(autor);
         } catch (RegraNegocioException e) {
@@ -92,14 +95,8 @@ public class AutorController {
         ModelMapper modelMapper = new ModelMapper();
         Autor autor = modelMapper.map(dto, Autor.class);
 
-        if (dto.getIdLivro() != null) {
-            Optional<Livro> livro = livroService.getLivroById(dto.getIdLivro());
-            if (!livro.isPresent()) {
-                autor.setLivro(null);
-            } else {
-                autor.setLivro(livro.get());
-            }
-        }
+
+
 
         return autor;
     }

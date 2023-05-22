@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 
 
 public class GeneroDTO {
+    private Long id;
     private String nome;
 
 

@@ -46,11 +46,9 @@ import java.util.Optional;
         }
 
         public void validar (Livro livro) {
-            if (livro.getNomeAutor() ==null) {
-                throw new RegraNegocioException("Livro não encontrado");
-            }
+
             if (livro.getNome() ==null || livro.getNome().trim().equals("")) {
-                throw new RegraNegocioException("Nome Inválido");
+                throw new RegraNegocioException("Nome do livro Inválido");
             }
         }
 }

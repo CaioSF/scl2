@@ -6,14 +6,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import javax.persistence.Id;
+import java.time.LocalDate;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class AutorDTO {
+
+
+
+
     private Long id;
     private String nome;
-    private Long idLivro;
+
+    private LocalDate dataNascimento;
 
     private String email;
 
@@ -21,8 +30,7 @@ public class AutorDTO {
     public static AutorDTO create(Autor autor) {
         ModelMapper modelMapper = new ModelMapper();
         AutorDTO dto = modelMapper.map(autor, AutorDTO.class);
-        dto.nome = autor.getNome();
-        dto.email = autor.getEmail();
+
 
         return dto;
     }

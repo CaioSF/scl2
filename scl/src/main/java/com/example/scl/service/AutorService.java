@@ -40,12 +40,12 @@ public class AutorService {
     }
 
     public void validar(Autor autor) {
-        if (autor.getLivro() ==null) {
-            throw new RegraNegocioException("Autor não encontrado");
-        }
-        if (autor.getNome() ==null || autor.getNome().trim().equals("")) {
-            throw new RegraNegocioException("Nome Inválido");
+
+
+        if (autor.getNome() == null ){
+            throw new RegraNegocioException("Nome errado!");
         }
     }
 }
+
 
