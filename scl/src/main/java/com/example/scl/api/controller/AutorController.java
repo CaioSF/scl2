@@ -1,4 +1,4 @@
-package com.example.scl.api.dto.controller;
+package com.example.scl.api.controller;
 
 import com.example.scl.api.dto.AutorDTO;
 import com.example.scl.api.dto.LivroDTO;

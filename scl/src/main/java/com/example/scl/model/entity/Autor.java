@@ -13,14 +13,13 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Autor extends Pessoa {
 
 
 
 
-    private String email;
+
 
 
 

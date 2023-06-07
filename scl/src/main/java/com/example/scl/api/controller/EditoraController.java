@@ -1,4 +1,4 @@
-package com.example.scl.api.dto.controller;
+package com.example.scl.api.controller;
 
 
 import com.example.scl.api.dto.EditoraDTO;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -44,10 +45,43 @@ public class EditoraController {
 
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id")  final Long id, @RequestBody final EditoraDTO dto) {
+        if (!editoraService.getEditoraById(id).isPresent()) {
+            return new ResponseEntity("Editora não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Editora editora = converter(dto);
+            editora.setId(id);
+
+            editoraService.salvar(editora);
+            return ResponseEntity.ok(editora);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Editora> editora = editoraService.getEditoraById(id);
+        if (!editora.isPresent()) {
+            return new ResponseEntity("Editora não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            editoraService.excluir(editora.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
+
     public Editora converter(EditoraDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        Editora editora= modelMapper.map(dto, Editora.class);
-        editora.getId();
+        Editora editora = modelMapper.map(dto, Editora.class);
+
+
 
 
 

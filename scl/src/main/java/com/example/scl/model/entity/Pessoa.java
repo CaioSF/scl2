@@ -28,6 +28,8 @@ public abstract class Pessoa {
 
     private String nome;
 
+    private String nacionalidade;
+
     private LocalDate dataNascimento;
 
 

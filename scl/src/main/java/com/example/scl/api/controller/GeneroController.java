@@ -1,4 +1,4 @@
-package com.example.scl.api.dto.controller;
+package com.example.scl.api.controller;
 
 
 import com.example.scl.api.dto.EditoraDTO;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -42,6 +43,34 @@ public class GeneroController {
         }catch (RegraNegocioException e ) {
             return ResponseEntity.badRequest().body(e.getMessage());
 
+        }
+    }
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id")  final Long id, @RequestBody final GeneroDTO dto) {
+        if (!generoService.getGeneroById(id).isPresent()) {
+            return new ResponseEntity("Genero não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Genero genero = converter(dto);
+            genero.setId(id);
+
+            generoService.salvar(genero);
+            return ResponseEntity.ok(genero);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Genero> genero = generoService.getGeneroById(id);
+        if (!genero.isPresent()) {
+            return new ResponseEntity("Genero não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            generoService.excluir(genero.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     public Genero converter(GeneroDTO dto) {

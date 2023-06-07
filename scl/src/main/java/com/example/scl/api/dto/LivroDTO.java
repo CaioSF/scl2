@@ -24,9 +24,11 @@ public class LivroDTO {
 
 
 
-    private Integer nota;
+
 
     private LocalDate dataLancamento;
+
+    private Integer numeroPaginas;
 
     private Long idAutor;
 
@@ -37,6 +39,10 @@ public class LivroDTO {
     public static LivroDTO create(Livro livro) {
         ModelMapper modelMapper = new ModelMapper();
         LivroDTO dto = modelMapper.map(livro, LivroDTO.class);
+        dto.nome = livro.getNome();
+        dto.dataLancamento = livro.getDataLancamento();
+        dto.numeroPaginas = livro.getNumeroPaginas();
+
 
         return dto;
     }

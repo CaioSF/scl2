@@ -21,15 +21,18 @@ public class AutorDTO {
 
     private Long id;
     private String nome;
-
+    private String nacionalidade;
     private LocalDate dataNascimento;
 
-    private String email;
+
 
 
     public static AutorDTO create(Autor autor) {
         ModelMapper modelMapper = new ModelMapper();
         AutorDTO dto = modelMapper.map(autor, AutorDTO.class);
+        dto.nome = autor.getNome();
+        dto.nacionalidade = autor.getNacionalidade();
+        dto.dataNascimento = autor.getDataNascimento();
 
 
         return dto;

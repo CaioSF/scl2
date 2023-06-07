@@ -21,7 +21,7 @@ public class Livro {
 
     private String nome;
 
-    private Integer nota;
+    private Integer numeroPaginas;
 
     private LocalDate dataLancamento;
 
