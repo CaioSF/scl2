@@ -21,12 +21,13 @@ public class Livro {
 
     private String nome;
 
+    private String genero;
+
     private Integer numeroPaginas;
 
     private LocalDate dataLancamento;
 
-    @ManyToOne
-    private Genero genero;
+
 
     @ManyToOne
     private Editora editora;

@@ -41,6 +41,16 @@ public class LivroController {
 
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity get(@PathVariable("id") Long id) {
+        Optional<Livro> livro = service.getLivroById(id);
+        if (!livro.isPresent()) {
+            return new ResponseEntity("Livro não encontrado", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(livro.map(LivroDTO::create));
+    }
+
     @PostMapping()
 
     public ResponseEntity post(@RequestBody  LivroDTO dto) {
@@ -76,7 +86,7 @@ public class LivroController {
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<Livro> livro = service.getLivroById(id);
         if (!livro.isPresent()) {
-            return new ResponseEntity("Autor não encontrado", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Livro não encontrado", HttpStatus.NOT_FOUND);
         }
         try {
             service.excluir(livro.get());

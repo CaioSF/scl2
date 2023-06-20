@@ -1,9 +1,11 @@
 package com.example.scl.api.controller;
 
 
+import com.example.scl.api.dto.AutorDTO;
 import com.example.scl.api.dto.EditoraDTO;
 import com.example.scl.api.dto.LivroDTO;
 import com.example.scl.exception.RegraNegocioException;
+import com.example.scl.model.entity.Autor;
 import com.example.scl.model.entity.Editora;
 import com.example.scl.model.entity.Livro;
 import com.example.scl.service.EditoraService;
@@ -24,13 +26,22 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EditoraController {
 
-    private final EditoraService editoraService;
+    private final EditoraService service;
 
     @GetMapping()
     public ResponseEntity get() {
-        List<Editora> editoras = editoraService.getEditoras();
+        List<Editora> editoras = service.getEditoras();
         return ResponseEntity.ok(editoras.stream().map(EditoraDTO::create).collect(Collectors.toList()));
 
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity get(@PathVariable("id") Long id) {
+        Optional<Editora> editora = service.getEditoraById(id);
+        if (!editora.isPresent()) {
+            return new ResponseEntity("Autor não encontrado", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(editora.map(EditoraDTO::create));
     }
 
     @PostMapping()
@@ -38,7 +49,7 @@ public class EditoraController {
         try {
             Editora editora = converter(dto);
 
-            editora = editoraService.salvar(editora);
+            editora = service.salvar(editora);
             return new ResponseEntity(editora, HttpStatus.CREATED);
         }catch (RegraNegocioException e ) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -48,14 +59,14 @@ public class EditoraController {
 
     @PutMapping("{id}")
     public ResponseEntity atualizar(@PathVariable("id")  final Long id, @RequestBody final EditoraDTO dto) {
-        if (!editoraService.getEditoraById(id).isPresent()) {
+        if (!service.getEditoraById(id).isPresent()) {
             return new ResponseEntity("Editora não encontrado", HttpStatus.NOT_FOUND);
         }
         try {
             Editora editora = converter(dto);
             editora.setId(id);
 
-            editoraService.salvar(editora);
+            service.salvar(editora);
             return ResponseEntity.ok(editora);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -63,12 +74,12 @@ public class EditoraController {
     }
     @DeleteMapping("{id}")
     public ResponseEntity excluir(@PathVariable("id") Long id) {
-        Optional<Editora> editora = editoraService.getEditoraById(id);
+        Optional<Editora> editora = service.getEditoraById(id);
         if (!editora.isPresent()) {
             return new ResponseEntity("Editora não encontrada", HttpStatus.NOT_FOUND);
         }
         try {
-            editoraService.excluir(editora.get());
+            service.excluir(editora.get());
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

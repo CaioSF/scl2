@@ -2,6 +2,7 @@ package com.example.scl.api.dto;
 
 
 import com.example.scl.model.entity.Autor;
+import com.example.scl.api.dto.AutorDTO;
 import com.example.scl.model.entity.Livro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class LivroDTO {
     @Id
     private Long id;
     private String nome;
+
+    private String genero;
 
 
 
@@ -42,6 +45,10 @@ public class LivroDTO {
         dto.nome = livro.getNome();
         dto.dataLancamento = livro.getDataLancamento();
         dto.numeroPaginas = livro.getNumeroPaginas();
+        dto.genero = livro.getGenero();
+
+
+
 
 
         return dto;
